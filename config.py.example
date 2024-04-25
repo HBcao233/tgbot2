@@ -1,0 +1,18 @@
+import os
+
+botRoot = os.path.dirname(os.path.realpath(__file__))
+commands = []
+inlines = []
+buttons = []
+
+# Telegram Bot Token
+token = ""
+# 机器人的代理
+proxy_url = None  # http://127.0.0.1:10809/
+# get, post 的代理
+proxies = {
+    # "http://": f"http://127.0.0.1:10809/",
+    # "https://": f"http://127.0.0.1:10809/"
+}
+
+echo_chat_id = 0
