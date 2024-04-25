@@ -9,6 +9,7 @@ from telegram import (
     ReplyParameters,
     InputMediaPhoto,
     InputMediaVideo,
+    BotCommand,
 )
 from telegram.ext import (
     ApplicationBuilder,
