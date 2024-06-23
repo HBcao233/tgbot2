@@ -8,7 +8,8 @@ from plugin import handler
 @handler('_')
 async def _(update, context, text):
   message = update.message 
-  logger.info(message)
+  bot = context.bot
+  # logger.info(message)
   if config.echo_chat_id == 0:
     return
   
@@ -21,7 +22,7 @@ async def _(update, context, text):
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     
-    await context.bot.copyMessage(
+    await bot.copyMessage(
       chat_id=config.echo_chat_id, 
       message_id=message.message_id, 
       from_chat_id=message.chat.id,
@@ -32,13 +33,11 @@ async def _(update, context, text):
   if ( 
     hasattr(message, 'reply_to_message') and 
     hasattr(message.reply_to_message, 'reply_markup') and
-    hasattr(message.reply_to_message.reply_markup, 'inline_keyboard')
+    getattr(message.reply_to_message.reply_markup, 'inline_keyboard', None)
   ):
-    reply_to_message_id = None
-    await context.bot.sendMessage(
+    await bot.copy_message(
       chat_id=message.reply_to_message.reply_markup.inline_keyboard[0][0].url.replace('tg://user?id=', ''), 
-      text=message.text_html, 
-      parse_mode="HTML",
-      reply_to_message_id=reply_to_message_id
+      message_id=message.message_id,
+      from_chat_id=message.chat.id,
     )
     
